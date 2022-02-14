@@ -1,10 +1,13 @@
 package com.marcos.schulz.projetopedido.domain.models;
 
 
+import com.marcos.schulz.projetopedido.domain.models.enums.OrderStatus;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
+
 
 @Entity
 @Table(name = "tb_order")
@@ -16,6 +19,10 @@ public class Order implements Serializable {
     private Long id;
     private Instant date;
 
+    //alterado internamento o tipo Order status para Integer, e realizado tratamento para que
+    //as demais classes vejam ainda como tipo OrderStatus
+    private Integer orderStatus;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
@@ -23,9 +30,10 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Long id, Instant date, User client) {
+    public Order(Long id, Instant date,OrderStatus orderStatus, User client) {
         this.id = id;
         this.date = date;
+        setOrderStatus(orderStatus);
         this.client = client;
     }
 
@@ -51,6 +59,16 @@ public class Order implements Serializable {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    //usado Metodo criado ValueOf, para transformar de Integer para OrderStatus
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
+
+    //Feito tratamento get, para pegar o orderStatus que esta sendo passado como integer
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus.getCode();
     }
 
     @Override
