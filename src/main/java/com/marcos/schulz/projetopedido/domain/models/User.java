@@ -1,4 +1,4 @@
-package com.marcos.schulz.projetopedido.domain.model;
+package com.marcos.schulz.projetopedido.domain.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

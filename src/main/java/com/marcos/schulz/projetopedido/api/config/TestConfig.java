@@ -1,7 +1,7 @@
 package com.marcos.schulz.projetopedido.api.config;
 
-import com.marcos.schulz.projetopedido.domain.model.User;
-import com.marcos.schulz.projetopedido.domain.repository.UserRepository;
+import com.marcos.schulz.projetopedido.domain.models.User;
+import com.marcos.schulz.projetopedido.domain.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
