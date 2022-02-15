@@ -72,6 +72,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    //metodo deve sempre iniciar com GET para ser renderizado no JSON
     public Double getSubTotal(){
         return quantity * price;
     }

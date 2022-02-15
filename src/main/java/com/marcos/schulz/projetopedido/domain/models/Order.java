@@ -95,6 +95,7 @@ public class Order implements Serializable {
         this.payment = payment;
     }
 
+    //metodo deve sempre iniciar com GET para ser renderizado no JSON
     public Double getTotal(){
         Double total= 0.0;
         for (OrderItem x : items){
