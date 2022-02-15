@@ -36,4 +36,10 @@ public class ProductResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getId()).toUri();
         return ResponseEntity.created(uri).body(product);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product productObj){
+        productObj = productService.update(id, productObj);
+        return ResponseEntity.ok().body(productObj);
+    }
 }

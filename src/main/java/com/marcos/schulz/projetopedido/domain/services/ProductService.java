@@ -1,5 +1,6 @@
 package com.marcos.schulz.projetopedido.domain.services;
 
+import com.marcos.schulz.projetopedido.domain.models.Category;
 import com.marcos.schulz.projetopedido.domain.models.Product;
 import com.marcos.schulz.projetopedido.domain.repositories.ProductRepository;
 import com.marcos.schulz.projetopedido.domain.services.exceptions.ResourceNotFoundException;
@@ -27,6 +28,20 @@ public class ProductService {
 
     public Product insert(Product product){
         return productRepository.save(product);
+    }
+
+    public Product update (Long id, Product obj){
+        Product product = productRepository.getById(id);
+        updateData(product, obj);
+        return productRepository.save(product);
+    }
+
+    //metodo auxiliar para update do produto
+    private void updateData(Product product, Product obj) {
+        product.setName(obj.getName());
+        product.setDescription(obj.getDescription());
+        product.setPrice(obj.getPrice());
+        product.setImgUrl(obj.getImgUrl());
     }
 
 }
