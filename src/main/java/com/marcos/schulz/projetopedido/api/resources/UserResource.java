@@ -27,7 +27,7 @@ public class UserResource {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> findById(@PathVariable Long id){
-        User userOptional = userService.findById(id);
-        return ResponseEntity.ok().body(userOptional);
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user);
     }
 }

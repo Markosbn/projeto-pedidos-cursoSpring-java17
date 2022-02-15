@@ -1,8 +1,10 @@
 package com.marcos.schulz.projetopedido.api.config;
 
+import com.marcos.schulz.projetopedido.domain.models.Category;
 import com.marcos.schulz.projetopedido.domain.models.Order;
 import com.marcos.schulz.projetopedido.domain.models.User;
 import com.marcos.schulz.projetopedido.domain.models.enums.OrderStatus;
+import com.marcos.schulz.projetopedido.domain.repositories.CategoryRepository;
 import com.marcos.schulz.projetopedido.domain.repositories.OrderRepository;
 import com.marcos.schulz.projetopedido.domain.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,19 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     OrderRepository orderRepository;
 
+    @Autowired
+    CategoryRepository categoryRepository;
+
     //implementado a inserção de usuarios no bd teste
     @Override
     public void run(String... args) throws Exception {
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
         User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
 
