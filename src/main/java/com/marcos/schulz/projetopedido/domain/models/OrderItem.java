@@ -46,7 +46,8 @@ public class OrderItem implements Serializable {
     public void setOrder(Order order){
         id.setOrder(order);
     }
-
+    //adicionado ignora no get de produtos para não ocorrer loop ao buscar os produtos e tem a lista de pedidos neles intuite de teste
+    //@JsonIgnore
     public Product getProduct(){
         return id.getProduct()  ;
     }
