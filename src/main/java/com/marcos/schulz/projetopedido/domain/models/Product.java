@@ -19,7 +19,12 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-    @Transient
+    //associação muitos para muitos, Utilizado JoinTable. Para utilizar uma tabela adicionar, no banco relacional
+    //atraves dessa tabela sera administrado as relações
+    //Adicionado as colunas atraves do joinColuns (ID dessa CLASSE)
+    //inverseJoinColums (ID da tabela da classe relacionada)
+    @ManyToMany
+    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     public Product() {
