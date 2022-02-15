@@ -2,6 +2,7 @@ package com.marcos.schulz.projetopedido.domain.services;
 
 import com.marcos.schulz.projetopedido.domain.models.Order;
 import com.marcos.schulz.projetopedido.domain.repositories.OrderRepository;
+import com.marcos.schulz.projetopedido.domain.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,6 @@ public class OrderService {
 
     public Order findById(Long id){
         Optional<Order> orderOptional = orderRepository.findById(id);
-        return orderOptional.get();
+        return orderOptional.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }

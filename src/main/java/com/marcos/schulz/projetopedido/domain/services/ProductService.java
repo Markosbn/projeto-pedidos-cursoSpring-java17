@@ -2,6 +2,7 @@ package com.marcos.schulz.projetopedido.domain.services;
 
 import com.marcos.schulz.projetopedido.domain.models.Product;
 import com.marcos.schulz.projetopedido.domain.repositories.ProductRepository;
+import com.marcos.schulz.projetopedido.domain.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,6 @@ public class ProductService {
 
     public Product findById(Long id){
         Optional<Product> productOptional = productRepository.findById(id);
-        return productOptional.get();
+        return productOptional.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }

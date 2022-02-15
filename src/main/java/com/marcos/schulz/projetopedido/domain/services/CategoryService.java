@@ -2,6 +2,7 @@ package com.marcos.schulz.projetopedido.domain.services;
 
 import com.marcos.schulz.projetopedido.domain.models.Category;
 import com.marcos.schulz.projetopedido.domain.repositories.CategoryRepository;
+import com.marcos.schulz.projetopedido.domain.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,6 @@ public class CategoryService {
 
     public Category findById(Long id){
         Optional<Category> categoryOptional = categoryRepository.findById(id);
-        return categoryOptional.get();
+        return categoryOptional.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }
