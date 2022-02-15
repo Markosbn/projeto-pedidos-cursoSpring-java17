@@ -2,7 +2,6 @@ package com.marcos.schulz.projetopedido.domain.models;
 
 
 import com.marcos.schulz.projetopedido.domain.models.enums.OrderStatus;
-import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,6 +33,11 @@ public class Order implements Serializable {
     //mappedBy é instanciado com o ID do pedido(Order), pois é o pedido que possui o item
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
+
+    //mapeamento de oneToOne para usar o mesmo id em duas tabelas (ID PED 1 vai SER o id do PAG 1). Utilizado o CASCADE
+    //mapped vai para para a classe principal
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 
     public Order() {
     }
@@ -81,6 +85,14 @@ public class Order implements Serializable {
 
     public Set<OrderItem> getItems() {
         return items;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     @Override
