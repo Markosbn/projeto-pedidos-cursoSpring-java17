@@ -24,4 +24,9 @@ public class ProductService {
         Optional<Product> productOptional = productRepository.findById(id);
         return productOptional.orElseThrow(() -> new ResourceNotFoundException(id));
     }
+
+    public Product insert(Product product){
+        return productRepository.save(product);
+    }
+
 }
