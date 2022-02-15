@@ -2,6 +2,7 @@ package com.marcos.schulz.projetopedido.domain.services;
 
 import com.marcos.schulz.projetopedido.domain.models.User;
 import com.marcos.schulz.projetopedido.domain.repositories.UserRepository;
+import com.marcos.schulz.projetopedido.domain.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> userOptional = userRepository.findById(id);
-        return userOptional.get();
+        return userOptional.orElseThrow(() -> new ResourceNotFoundException(id)); //Alterado o .get para .orElseThrow, para que lance excessão de não retornar nada no optional
     }
 
     public User insert(User user){
