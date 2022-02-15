@@ -1,5 +1,6 @@
 package com.marcos.schulz.projetopedido.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcos.schulz.projetopedido.domain.models.pk.OrderItemPK;
 import org.aspectj.weaver.ast.Or;
 
@@ -17,9 +18,9 @@ public class OrderItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //id multiplo (produto e pedido) cada um vai ter seu campo no banco
-    //id não tem get e set
+    //id não tem get e set (Deve sempre ser instanciado para o id não ser nulo)
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
 
     private Integer quantity;
     private Double price;
@@ -36,6 +37,8 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    //ignore no get do pedido para não ocorrer o loop
+    @JsonIgnore
     public Order getOrder(){
         return id.getOrder();
     }

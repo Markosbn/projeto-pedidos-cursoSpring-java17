@@ -2,11 +2,14 @@ package com.marcos.schulz.projetopedido.domain.models;
 
 
 import com.marcos.schulz.projetopedido.domain.models.enums.OrderStatus;
+import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -26,6 +29,11 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
+
+    //instancia de um para muitos, para associar os itens com o pedido
+    //mappedBy é instanciado com o ID do pedido(Order), pois é o pedido que possui o item
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order() {
     }
@@ -69,6 +77,10 @@ public class Order implements Serializable {
     //Feito tratamento get, para pegar o orderStatus que esta sendo passado como integer
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus.getCode();
+    }
+
+    public Set<OrderItem> getItems() {
+        return items;
     }
 
     @Override

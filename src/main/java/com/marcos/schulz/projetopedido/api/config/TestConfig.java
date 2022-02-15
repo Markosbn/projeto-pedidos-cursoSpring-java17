@@ -1,14 +1,8 @@
 package com.marcos.schulz.projetopedido.api.config;
 
-import com.marcos.schulz.projetopedido.domain.models.Category;
-import com.marcos.schulz.projetopedido.domain.models.Order;
-import com.marcos.schulz.projetopedido.domain.models.Product;
-import com.marcos.schulz.projetopedido.domain.models.User;
+import com.marcos.schulz.projetopedido.domain.models.*;
 import com.marcos.schulz.projetopedido.domain.models.enums.OrderStatus;
-import com.marcos.schulz.projetopedido.domain.repositories.CategoryRepository;
-import com.marcos.schulz.projetopedido.domain.repositories.OrderRepository;
-import com.marcos.schulz.projetopedido.domain.repositories.ProductRepository;
-import com.marcos.schulz.projetopedido.domain.repositories.UserRepository;
+import com.marcos.schulz.projetopedido.domain.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +29,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    OrderItemRepository orderItemRepository;
 
     //implementado a inserção de usuarios no bd teste
     @Override
@@ -76,5 +73,12 @@ public class TestConfig implements CommandLineRunner {
         Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, u1);
 
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
     }
 }
