@@ -3,10 +3,14 @@ package com.marcos.schulz.projetopedido.domain.services;
 import com.marcos.schulz.projetopedido.domain.models.Category;
 import com.marcos.schulz.projetopedido.domain.models.Product;
 import com.marcos.schulz.projetopedido.domain.repositories.ProductRepository;
+import com.marcos.schulz.projetopedido.domain.services.exceptions.DatabaseException;
 import com.marcos.schulz.projetopedido.domain.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,9 +35,26 @@ public class ProductService {
     }
 
     public Product update (Long id, Product obj){
-        Product product = productRepository.getById(id);
-        updateData(product, obj);
-        return productRepository.save(product);
+        try{
+            Product product = productRepository.getById(id);
+            updateData(product, obj);
+            return productRepository.save(product);
+        }
+        catch (EntityNotFoundException e ){
+            throw new ResourceNotFoundException(id);
+        }
+    }
+
+    public void delete(Long id){
+        try {
+            productRepository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     //metodo auxiliar para update do produto
